@@ -1,0 +1,23 @@
+.img-brand{
+  width: 18%;
+  height: auto;
+}
+
+header {
+  nav {
+    &>ul {
+      list-style-type: none;
+      @include flex();
+      &>li {
+        font-size: 20px;
+        cursor: pointer;
+        &:not(:last-child) {
+          margin-right: 15px;
+        }
+        &:hover {
+          color: $red;
+        }
+      }
+    }
+  }
+}
