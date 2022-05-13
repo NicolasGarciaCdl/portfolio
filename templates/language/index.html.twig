@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Language index{% endblock %}
+{% block title %}Les Langages{% endblock %}
 
 {% block body %}
-    <h1>Language index</h1>
-
+    <h1 class="m-4 display-4 text-center">Liste des Langages</h1>
+    <a class="btn btn-warning mb-4 " href="{{ path('app_language_new') }}">Ajouter un langage</a>
     <table class="table">
         <thead>
             <tr>
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_language_new') }}">Create new</a>
+
 {% endblock %}

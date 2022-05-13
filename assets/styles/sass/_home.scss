@@ -1,13 +1,8 @@
-body {
-    font-family: Poppins, sans-serif;
-    font-size: 16px;
-    line-height: 1;
-}
+
 
 // section 1
 
 .welcome{
-    width: 50%;
     z-index: 1;
     .text-red{
         color:$red;
@@ -20,41 +15,24 @@ body {
         margin: 8px 0 16px;
     }
     .job{
-        
         color: $white;
         font-size: 1.75em;
         font-weight: 500;
     }
- 
-}
-.welcome-img{
-    width: 50%;
-    align-self: flex-start;
-    text-align: center;
-    &img{
-        width: 507px;
-        height: auto;
-        position: center;
-        
-    }
 }
 
-.home-section1{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 .section-main{
     display: flex;
     align-items: center;
     background-color: rgba(22, 34, 57, 0.5);
     height: 100vh;
     background-image:
-    linear-gradient(
-                    rgba(0, 0, 0, 0.3),
-                    rgba(0, 0, 0, 0.8)
-    ),  /*Applique un filtre noir sur l'image*/
-    url("video_bg.jpg");
+            linear-gradient(
+                            rgba(0, 0, 0, 0.3),
+                            rgba(0, 0, 0, 0.8)
+            ),  /*Applique un filtre noir sur l'image*/
+            url("video_bg.jpg");
     z-index: 10;
     
 }
@@ -177,7 +155,7 @@ body {
     to {opacity: 1}
 }
 @media screen and (max-device-width: 800px) {
-
+    
     .bg_video {
         display: none;
     }
