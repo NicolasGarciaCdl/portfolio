@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\LanguageRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Entity\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -22,21 +21,17 @@ class Language
     #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $picture;
+    /**
+     * @Vich\UploadableField(mapping="languages", fileNameProperty="imageName")
+     *
+     */
+    private $imageFile;
+
+    #[ORM\Column(type: 'string')]
+    private ?string $imageName = null;
 
     #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'languages')]
     private $projects;
-
-    #[ORM\Column(type: 'string')]
-    private ?string $ImageName = null;
-
-    /**
-     * @Vich\UploadableField(mapping="languages", fileNameProperty="langImageName")
-     *
-     */
-    private ?File $ImageFile;
-
 
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $updatedAt = null;
@@ -60,17 +55,6 @@ class Language
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(string $picture): self
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
 
     /**
      * @return mixed
@@ -95,9 +79,9 @@ class Language
      * must be able to accept an instance of 'File' as the bundle will inject one here
      * during Doctrine hydration.
      *
-     * @param File|null $imageFile
+     * @param File|null $picture
      */
-    public function setImageFile(?File $imageFile = null): void
+    public function setImageFile($imageFile = null): void
     {
         $this->imageFile = $imageFile;
 
@@ -108,7 +92,7 @@ class Language
         }
     }
 
-    public function getImageFile(): ?File
+    public function getImageFile()
     {
         return $this->imageFile;
     }

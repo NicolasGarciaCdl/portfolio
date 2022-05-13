@@ -5,6 +5,7 @@
 {% block body %}
     <h1 class="m-4 display-4 text-center">Liste des Langages</h1>
     <a class="btn btn-warning mb-4 " href="{{ path('app_language_new') }}">Ajouter un langage</a>
+    <div class="container">
     <table class="table">
         <thead>
             <tr>
@@ -19,19 +20,19 @@
             <tr>
                 <td>{{ language.id }}</td>
                 <td>{{ language.title }}</td>
-                <td>{{ language.picture }}</td>
+                <td>{{ language.imageName }}</td>
                 <td>
-                    <a href="{{ path('app_language_show', {'id': language.id}) }}">show</a>
-                    <a href="{{ path('app_language_edit', {'id': language.id}) }}">edit</a>
+                    <a href="{{ path('app_language_show', {'id': language.id}) }}">Détails</a>
+                    <a href="{{ path('app_language_edit', {'id': language.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Pas d'enregistrements trouvés !</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-
+    </div>
 {% endblock %}
