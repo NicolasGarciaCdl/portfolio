@@ -3,32 +3,23 @@
 {% block title %}Project{% endblock %}
 
 {% block body %}
-    <h1>Project</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ project.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ project.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ project.content }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <h1>{{ project.title }}</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h2>{{ project.createdAt ? project.createdAt|date('Y-m-d') : '' }}</h2>
+            <p>
+                {{ project.content }}
+            </p>
+        </div>
+    </div>
 
-    <a href="{{ path('app_project_index') }}">back to list</a>
 
-    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
+    <a href="{{ path('app_project_index') }}">Retour à la liste</a>
+
+    <a href="{{ path('app_project_edit', {'id': project.id}) }}">Modifier</a>
 
     {{ include('project/_delete_form.html.twig') }}
 {% endblock %}

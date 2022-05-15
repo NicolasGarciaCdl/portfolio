@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Model\TimestampedInterface;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
-class Article
+class Article implements TimestampedInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,15 +22,21 @@ class Article
     #[ORM\Column(type: 'text')]
     private $content;
 
+    #[ORM\Column(type: 'string')]
+    private $slug;
+
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
-    private $user_id;
+    private $user;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $link_url;
+    private ?string $linkUrl;
 
-    #[ORM\Column(type: 'datetime_immutable')]
-    private $created_at;
+    #[ORM\Column(type: 'datetime')]
+    private  $createdAt;
+
+    #[ORM\Column(type: 'datetime')]
+    private $updatedAt;
 
     #[ORM\OneToMany(mappedBy: 'article_id', targetEntity: Comment::class, orphanRemoval: true)]
     private $comments;
@@ -68,41 +75,43 @@ class Article
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setUser(?User $user_id): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user_id;
 
         return $this;
     }
 
     public function getLinkUrl(): ?string
     {
-        return $this->link_url;
+        return $this->linkUrl;
     }
 
     public function setLinkUrl(string $link_url): self
     {
-        $this->link_url = $link_url;
+        $this->linkUrl = $link_url;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    public function setCreatedAt($created_at): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $created_at;
 
         return $this;
     }
+
+
 
     /**
      * @return Collection<int, Comment>
@@ -132,5 +141,34 @@ class Article
         }
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     * @return Article
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+
+    public function getUpdatedAt()
+    {
+        // TODO: Implement getUpdatedAT() method.
+    }
+
+    public function setUpdatedAt( $updatedAt)
+    {
+        // TODO: Implement SetUpdatedAt() method.
     }
 }

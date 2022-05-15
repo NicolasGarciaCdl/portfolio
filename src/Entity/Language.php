@@ -79,7 +79,7 @@ class Language
      * must be able to accept an instance of 'File' as the bundle will inject one here
      * during Doctrine hydration.
      *
-     * @param File|null $picture
+     * @param null $imageFile
      */
     public function setImageFile($imageFile = null): void
     {

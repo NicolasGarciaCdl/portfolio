@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
+use App\Model\TimestampedInterface;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
-class Comment
+class Comment implements TimestampedInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -15,17 +16,20 @@ class Comment
 
     #[ORM\ManyToOne(targetEntity: Article::class, inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private $article_id;
+    private $article;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private $user_id;
+    private $user;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $content;
 
-    #[ORM\Column(type: 'datetime_immutable')]
-    private $created_at;
+    #[ORM\Column(type: 'datetime')]
+    private $createdAt;
+
+    #[ORM\Column(type: 'datetime')]
+    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -34,24 +38,24 @@ class Comment
 
     public function getArticleId(): ?Article
     {
-        return $this->article_id;
+        return $this->articleId;
     }
 
     public function setArticleId(?Article $article_id): self
     {
-        $this->article_id = $article_id;
+        $this->articleId = $article_id;
 
         return $this;
     }
 
     public function getUserId(): ?User
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
     public function setUserId(?User $user_id): self
     {
-        $this->user_id = $user_id;
+        $this->userId = $user_id;
 
         return $this;
     }
@@ -68,15 +72,25 @@ class Comment
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    public function setCreatedAt( $created_at): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $created_at;
 
         return $this;
+    }
+
+    public function getUpdatedAt()
+    {
+        // TODO: Implement getUpdatedAt() method.
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt)
+    {
+        // TODO: Implement setUpdatedAt() method.
     }
 }
