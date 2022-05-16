@@ -34,10 +34,8 @@ class Project implements TimestampedInterface
     #[ORM\Column(type: 'datetime')]
     private $createdAt;
 
-
     #[ORM\Column(type: 'string')]
     private ?string $imageName = null;
-
 
     /**
      * @Vich\UploadableField(mapping="projects", fileNameProperty="imageName")

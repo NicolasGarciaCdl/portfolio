@@ -19,7 +19,7 @@
                             <p class="card-text">{{ project.content }}</p>
                             <a class="btn btn-primary" href="{{ path('app_project_show', {'id': project.id}) }}">Voir Plus</a>
                             {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('app_project_edit', {'id': project.id}) }}">Modifier</a>
+                            <a class="btn btn-success" href="{{ path('app_project_edit', {'id': project.id}) }}">Modifier</a>
                             {% endif %}
                         </div>
                     </div>

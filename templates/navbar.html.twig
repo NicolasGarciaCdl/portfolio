@@ -12,7 +12,8 @@
                     <li class="nav-item me-4">
                         <a class="nav-link" href="/">Accueil</a>
                     </li>
-                    {% if (currentPath is same as ('/')) %}
+
+                    {% if (currentPath is same as ('/') or currentPath is same as('/admin') ) %}
                         <li class="nav-item me-4">
                             <a class="nav-link" href="#skills">Compétences</a>
                         </li>

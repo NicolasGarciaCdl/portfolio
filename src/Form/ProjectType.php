@@ -39,7 +39,7 @@ class ProjectType extends AbstractType
                 'expanded'=>true,
                 'multiple'=>true,
                 'choice_label'=>'title',
-                'mapped' => false
+                'mapped' => true
             ])
             ->add('imageFile', VichImageType::class, [
                 'required' => true,

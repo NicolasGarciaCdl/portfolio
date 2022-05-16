@@ -15,7 +15,7 @@
                             <h2>Crée le : {{ project.createdAt ? project.createdAt|date('Y-m-d') : '' }}</h2>
                             <p class="card-text"> {{ project.content }}</p>
 
-                            <a href="{{ project.url }}" target="_blank">Lien vers le site</a>
+                            <a class="btn btn-primary" href="{{ project.url }}" target="_blank">Lien vers le site</a>
                         </div>
                     </div>
                 </div>

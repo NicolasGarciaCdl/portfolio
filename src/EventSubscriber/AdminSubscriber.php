@@ -26,8 +26,8 @@ class AdminSubscriber implements EventSubscriberInterface
         return [
             BeforeEntityPersistedEvent::class => ['setEntityCreatedAt'],
             BeforeEntityUpdatedEvent::class => ['setEntityUpdatedAt'],
-            BeforeEntityPersistedEvent::class =>['setArticleSlugAndUser'],
-            BeforeEntityUpdatedEvent::class => ['setArticleUpdateSlugAndUser']
+            BeforeEntityPersistedEvent::class =>['setDateAndUser'],
+            BeforeEntityUpdatedEvent::class => ['setArticleUpdateDateAndUser']
         ];
     }
 
@@ -51,15 +51,14 @@ class AdminSubscriber implements EventSubscriberInterface
         $entity->setUpdatedAt(new \DateTime());
     }
 
-    public function setArticleSlugAndUser(BeforeEntityPersistedEvent $event)
+    public function setDateAndUser(BeforeEntityPersistedEvent $event)
     {
         $entity = $event->getEntityInstance();
 
         if(!$entity instanceof Article){
             return;
         }
-        $slug = $this->slugger->slug($entity->getTitle());
-        $entity->setSlug($slug);
+
         $user = $this->security->getUser();
         $entity->setUser($user);
         $now = new \DateTime();
@@ -69,15 +68,13 @@ class AdminSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function setArticleUpdateSlugAndUser(BeforeEntityUpdatedEvent $event)
+    public function setArticleUpdateDateAndUser(BeforeEntityUpdatedEvent $event)
     {
         $entity = $event->getEntityInstance();
 
         if(!$entity instanceof Article){
             return;
         }
-        $slug = $this->slugger->slug($entity->getTitle());
-        $entity->setSlug($slug);
         $user = $this->security->getUser();
         $entity->setUser($user);
         $now = new \DateTime();

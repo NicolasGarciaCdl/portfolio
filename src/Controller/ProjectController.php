@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/project')]
@@ -19,7 +20,8 @@ class ProjectController extends AbstractController
     {
         $projects = $entityManager
             ->getRepository(Project::class)
-            ->findAll();
+            ->findBy([], ['createdAt'=> 'DESC']);
+
 
         return $this->render('project/index.html.twig', [
             'projects' => $projects,
@@ -34,7 +36,9 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($project);
+            $projectToSave = $form->getData();
+
+            $entityManager->persist($projectToSave);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
@@ -82,4 +86,5 @@ class ProjectController extends AbstractController
 
         return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }
