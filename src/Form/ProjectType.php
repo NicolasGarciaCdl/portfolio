@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Language;
 use App\Entity\Project;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -17,11 +18,29 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('content', TextareaType::class)
-            ->add('url', TextType::class)
-            ->add('created_at', DateTimeType::class)
-            ->add('languages', EntityType::class)
+            ->add('title', TextType::class,[
+                'label'=>'Titre'
+            ])
+            ->add('content', TextareaType::class,[
+                'label'=>'Contenu'
+            ])
+            ->add('url', TextType::class,[
+                'label'=>'Lien du projet'
+            ])
+            ->add('created_at', DateTimeType::class,[
+                'label'=> 'crée le',
+                'widget'=> 'single_text',
+                'attr'=> [
+                    'placeholder' => 'Date du project'
+                ]
+            ])
+            ->add('languages', EntityType::class, [
+                'class'=> Language::class,
+                'expanded'=>true,
+                'multiple'=>true,
+                'choice_label'=>'title',
+                'mapped' => false
+            ])
             ->add('imageFile', VichImageType::class, [
                 'required' => true,
 

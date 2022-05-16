@@ -7,6 +7,8 @@ use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
@@ -34,22 +36,22 @@ class Project implements TimestampedInterface
 
 
     #[ORM\Column(type: 'string')]
-    private ?string $ImageName = null;
+    private ?string $imageName = null;
 
 
     /**
      * @Vich\UploadableField(mapping="projects", fileNameProperty="imageName")
      *
      */
-    private $ImageFile;
+    private $imageFile;
 
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Language::class, inversedBy: 'projects')]
-    private ArrayCollection $languages;
+    private $languages;
 
-    public function __construct()
+    #[Pure] public function __construct()
     {
         $this->languages = new ArrayCollection();
     }
@@ -138,6 +140,13 @@ class Project implements TimestampedInterface
         return $this->languages;
     }
 
+    public function setLanguages($languages)
+    {
+        $this->languages = $languages;
+        return $this;
+    }
+
+
     public function addLanguage(Language $language)
     {
         if (!$this->languages->contains($language)) {
@@ -152,16 +161,9 @@ class Project implements TimestampedInterface
             $this->languages->remove($language);
         }
     }
-    /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
-     */
-    public function setImageFile(?File $imageFile = null): void
+
+
+    public function setImageFile( $imageFile = null): void
     {
         $this->imageFile = $imageFile;
 
@@ -172,7 +174,7 @@ class Project implements TimestampedInterface
         }
     }
 
-    public function getImageFile(): ?File
+    public function getImageFile()
     {
         return $this->imageFile;
     }
@@ -186,4 +188,6 @@ class Project implements TimestampedInterface
     {
         return $this->imageName;
     }
+
+
 }

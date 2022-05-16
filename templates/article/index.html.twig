@@ -1,16 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article index{% endblock %}
+{% block title %}Blog{% endblock %}
 
 {% block body %}
-    <h1>Mon Blog</h1>
+<div class="container-fluid bg-dark">
     <div class="container">
+        <h1 class="text-white">Mon Blog</h1>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-warning mb-4" href="{{ path('app_article_new') }}">Ajouter un article</a>
+        {% endif %}
         <div class="row">
+
             <div class="col-md-8">
-                <h3 class="pb-4 mb-4 fst-italic border-bottom">Articles récents</h3>
+                <h3 class="pb-4 mb-4 fst-italic border-bottom text-white">Articles récents</h3>
             </div>
+            <h4 class="text-white">Actus du {{ data.semaine|date('d-m-Y') }}</h4>
+            {% for dat in data.ressources %}
+                <article class="card flex-md-row flex-wrap mb-4 box-shadow">
+                    <div class="article">
+                        <a href="{{ dat.url }}"><h5>{{ dat.title }}</h5></a>
+                        <p class="">par {{ dat.pseudo }}</p>
+                    </div>
+                </article>
+            {% endfor %}
+
             <div class="col-md-4">
                 <div class="position-sticky" style="top: 2rem;">
+
                     {% for article in articles %}
                         <h2>{{ article.title }}</h2>
                         <p>{{ article.content }}</p>
@@ -22,13 +38,13 @@
                         <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
                     {% else %}
                         <div>
-                            <h2>no records found</h2>
+                            <h2 class="text-white">no records found</h2>
                         </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <a href="{{ path('app_article_new') }}">Create new</a>
 {% endblock %}

@@ -3,9 +3,14 @@
 {% block title %}Nouveau Projet{% endblock %}
 
 {% block body %}
-    <h1>Ajouter un nouveau Projet</h1>
+    <div class="container">
+        <div class="row">
 
-    {{ include('project/_form.html.twig') }}
+            <h1 class="m-4">Ajouter un nouveau Projet</h1>
 
-    <a class="btn btn-info" href="{{ path('app_project_index') }}">Retour à la liste</a>
+            {{ include('project/_form.html.twig') }}
+
+        </div>
+        <a class="btn btn-info mt-2" href="{{ path('app_project_index') }}">Retour à la liste</a>
+    </div>
 {% endblock %}

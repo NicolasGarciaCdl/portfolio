@@ -1,5 +1,4 @@
 
-
 // section 1
 
 .welcome{
@@ -27,6 +26,7 @@
     align-items: center;
     background-color: rgba(22, 34, 57, 0.5);
     height: 100vh;
+    padding: 25px;
     background-image:
             linear-gradient(
                             rgba(0, 0, 0, 0.3),
@@ -42,32 +42,28 @@
     color: $red;
     text-decoration: underline;
 }
-.home-section2{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
+//section 2
+
+.services {
+    text-align: center;
+    border: solid 2px grey;
+    box-shadow: 7px 5px 0 2px #000000;
+    padding: 32px;
     color: $white;
-    .service{
-        text-align: center;
-        border: solid 2px grey;
-        &:hover{
-            border: solid 2px $red;
-            color: $red;
-            p:last-of-type{
-                color:$white;
-            }
+    
+    &:hover {
+        border: solid 2px $red;
+        color: $red;
+        
+        p:last-of-type {
+            color: $white;
         }
     }
-}
-
-.service{
-    &>img{
+    &>img {
         width: 40px;
-        background-color: $red;
+        background-color: $red!important;
     }
 }
-
 /* Slideshow container */
 .slideshow-container {
     max-width: 1000px;

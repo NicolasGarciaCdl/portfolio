@@ -1,25 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Project{% endblock %}
+    {% block title %}Project{% endblock %}
 
-{% block body %}
+    {% block body %}
+        <div class="container-fluid bg-dark">
+            <div class="container">
+                <h1 class="m-3 text-center text-white text-decoration-underline">{{ project.title }}</h1>
 
-    <div class="container">
-        <h1>{{ project.title }}</h1>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mx-auto">
-            <h2>{{ project.createdAt ? project.createdAt|date('Y-m-d') : '' }}</h2>
-            <p>
-                {{ project.content }}
-            </p>
+                <div class="row m-4">
+
+                    <div class="card" >
+                        <img src="{{ vich_uploader_asset(project, 'imageFile') }}" class="card-img-top" alt="image du projet {{ project.title }}">
+                        <div class="card-body bg-dark text-white">
+                            <h2>Crée le : {{ project.createdAt ? project.createdAt|date('Y-m-d') : '' }}</h2>
+                            <p class="card-text"> {{ project.content }}</p>
+
+                            <a href="{{ project.url }}" target="_blank">Lien vers le site</a>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-info" href="{{ path('app_project_index') }}">Retour à la liste</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-success" href="{{ path('app_project_edit', {'id': project.id}) }}">Modifier</a>
+                {{ include('project/_delete_form.html.twig') }}
+                {% endif %}
+            </div>
         </div>
-    </div>
-
-
-    <a href="{{ path('app_project_index') }}">Retour à la liste</a>
-
-    <a href="{{ path('app_project_edit', {'id': project.id}) }}">Modifier</a>
-
-    {{ include('project/_delete_form.html.twig') }}
-{% endblock %}
+    {% endblock %}

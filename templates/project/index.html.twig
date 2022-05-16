@@ -3,37 +3,33 @@
 {% block title %}Mes realisations{% endblock %}
 
 {% block body %}
-    <h1>Mes réalisations</h1>
+    <div class="container">
+        <h1 class="m-4 text-decoration-underline">Mes réalisations</h1>
+        {% if is_granted('ROLE_ADMIN') %}
+        <a class="btn btn-warning m-2" href="{{ path('app_project_new') }}">Ajouter un projet</a>
+        {% endif %}
+        <div class="row">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Created_at</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for project in projects %}
-            <tr>
-                <td>{{ project.id }}</td>
-                <td>{{ project.title }}</td>
-                <td>{{ project.content }}</td>
-                <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            {% for project in projects %}
+                <div class="col-md-4">
+                    <div class="card" >
+                        <img src="{{ vich_uploader_asset(project, 'imageFile') }}" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">  {{ project.title }} </h5>
+                            <p class="card-text">{{ project.content }}</p>
+                            <a class="btn btn-primary" href="{{ path('app_project_show', {'id': project.id}) }}">Voir Plus</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('app_project_edit', {'id': project.id}) }}">Modifier</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <h2>no records found</h2>
+            {% endfor %}
 
-    <a href="{{ path('app_project_new') }}">Create new</a>
+        </div>
+    </div>
+
+
 {% endblock %}

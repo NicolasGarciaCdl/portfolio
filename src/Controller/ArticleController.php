@@ -4,18 +4,21 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
-use App\Repository\ArticleRepository;
+use App\Services\CallApiService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 #[Route('/article')]
 class ArticleController extends AbstractController
 {
+
+
     #[Route('/', name: 'app_article_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, CallApiService $callApiService): Response
     {
         $articles = $entityManager
             ->getRepository(Article::class)
@@ -23,6 +26,7 @@ class ArticleController extends AbstractController
 
         return $this->render('article/index.html.twig', [
             'articles' => $articles,
+            'data'=> $callApiService->getLast()
         ]);
     }
 

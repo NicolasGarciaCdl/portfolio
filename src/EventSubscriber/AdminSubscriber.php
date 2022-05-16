@@ -69,7 +69,7 @@ class AdminSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function setArticleUpdateSlugAndUser(BeforeEntityPersistedEvent $event)
+    public function setArticleUpdateSlugAndUser(BeforeEntityUpdatedEvent $event)
     {
         $entity = $event->getEntityInstance();
 
