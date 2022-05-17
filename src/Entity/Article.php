@@ -164,11 +164,12 @@ class Article implements TimestampedInterface
 
     public function getUpdatedAt()
     {
-        // TODO: Implement getUpdatedAT() method.
+        return $this->updatedAt;
     }
 
     public function setUpdatedAt( $updatedAt)
     {
-        // TODO: Implement SetUpdatedAt() method.
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 }

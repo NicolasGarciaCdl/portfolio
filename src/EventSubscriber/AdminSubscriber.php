@@ -26,8 +26,7 @@ class AdminSubscriber implements EventSubscriberInterface
         return [
             BeforeEntityPersistedEvent::class => ['setEntityCreatedAt'],
             BeforeEntityUpdatedEvent::class => ['setEntityUpdatedAt'],
-            BeforeEntityPersistedEvent::class =>['setDateAndUser'],
-            BeforeEntityUpdatedEvent::class => ['setArticleUpdateDateAndUser']
+
         ];
     }
 
@@ -38,8 +37,12 @@ class AdminSubscriber implements EventSubscriberInterface
         if(!$entity instanceof TimestampedInterface){
             return;
         }
-
+        $user = $this->security->getUser();
+        $entity->setUser($user);
         $entity->setCreatedAt(new \DateTime());
+        $entity->setUpdatedAt(new \DateTime());
+
+
     }
     public function setEntityUpdatedAt(BeforeEntityUpdatedEvent $event)
     {
@@ -48,36 +51,8 @@ class AdminSubscriber implements EventSubscriberInterface
         if(!$entity instanceof TimestampedInterface){
             return;
         }
+        $user = $this->security->getUser();
+        $entity->setUser($user);
         $entity->setUpdatedAt(new \DateTime());
-    }
-
-    public function setDateAndUser(BeforeEntityPersistedEvent $event)
-    {
-        $entity = $event->getEntityInstance();
-
-        if(!$entity instanceof Article){
-            return;
-        }
-
-        $user = $this->security->getUser();
-        $entity->setUser($user);
-        $now = new \DateTime();
-        $entity->setCreatedAt($now);
-        if($entity->getUpdatedAT() == null){
-            $entity->setUpdatedAt(new \DateTime());
-        }
-    }
-
-    public function setArticleUpdateDateAndUser(BeforeEntityUpdatedEvent $event)
-    {
-        $entity = $event->getEntityInstance();
-
-        if(!$entity instanceof Article){
-            return;
-        }
-        $user = $this->security->getUser();
-        $entity->setUser($user);
-        $now = new \DateTime();
-        $entity->setUpdatedAt($now);
     }
 }
