@@ -4,8 +4,9 @@
 
 {% block body %}
     <h1 class="m-4 display-4 text-center">Liste des Langages</h1>
-    <a class="btn btn-warning mb-4 " href="{{ path('app_language_new') }}">Ajouter un langage</a>
+
     <div class="container">
+        <a class="btn btn-warning mb-4 " href="{{ path('app_language_new') }}">Ajouter un langage</a>
     <table class="table">
         <thead>
             <tr>
@@ -22,8 +23,8 @@
                 <td>{{ language.title }}</td>
                 <td>{{ language.imageName }}</td>
                 <td>
-                    <a href="{{ path('app_language_show', {'id': language.id}) }}">Détails</a>
-                    <a href="{{ path('app_language_edit', {'id': language.id}) }}">Modifier</a>
+                    <a class="btn btn-primary" href="{{ path('app_language_show', {'id': language.id}) }}">Détails</a>
+                    <a class="btn btn-success" href="{{ path('app_language_edit', {'id': language.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

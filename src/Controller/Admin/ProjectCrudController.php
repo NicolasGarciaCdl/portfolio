@@ -23,7 +23,8 @@ class ProjectCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('Projet')
             ->setDefaultSort(['createdAt'=> 'DESC'])
             ->setPageTitle('new', 'Ajout de projet')
-            ->setPageTitle('edit', 'Modification du projet');
+            ->setPageTitle('edit', 'Modification du projet')
+            ->showEntityActionsInlined();
 
     }
 

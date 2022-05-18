@@ -10,15 +10,37 @@
                 <h1 class="m-3 text-center text-white text-decoration-underline">{{ article.title }}</h1>
 
                 <div class="row m-4">
-                    <a class="nav-link" href="{{ path('app_comment_new') }}">Ajouter un commentaire</a>
                     <div class="card" >
                         <div class="card-body bg-dark text-white">
                             <h2>Crée le : {{ article.createdAt ? article.createdAt|date('d-m-Y') : '' }}</h2>
-                            <p class="card-text"> {{ article.content }}</p>
-                            {% if article.linkUrl is not ('') %}
-                            <a class="btn btn-primary" href="{{ article.linkUrl }}" target="_blank">Lien vers l' site</a>
+                            <p class="card-text"> {{ article.content | escape }}</p>
+                            {% if article.linkUrl is defined %}
+                                <a class="btn btn-primary" href="{{ article.linkUrl }}" target="_blank">Lien vers le site de l'article</a>
                             {% endif %}
                         </div>
+                    </div>
+                    <h2 class="comment-title mt-5">
+                        <span id="comment-count" class="text-white">{{ article.comments|length }} commentaire(s)</span>
+                    </h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {% for comment in comments %}
+                                <div class="card">
+                                    {{ comment.content }}
+                                </div>
+                            {% else %}
+                                <p class="text-white"> pas de commentaires</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if  app.user %}
+                    <div class="container">
+                        <div class="comment-area mb-5">
+                            {{ form(commentForm) }}
+                        </div>
+                        {% endif %}
+
                     </div>
                 </div>
                 <a class="btn btn-info" href="{{ path('app_article_index') }}">Retour à la liste</a>

@@ -8,42 +8,39 @@
     {{ form_start(registrationForm) }}
     <div class="container">
         <div class="row">
-            <div class="col-sm-3">
-                <label for="" class="form-label">
+            <div class="col-sm-3 ">
+                <div class="mb-3">
                     {{ form_label(registrationForm.firstname, null, {
-                        'label': 'Prénom',
+                        'label': 'Prénom', 'class': 'form-label'
                     }) }}
-                </label>
-                <div class="form-control">
                     {{ form_widget(registrationForm.firstname) }}
                 </div>
-                <label for="" class="form-label">
+
+                <div class="mb-3">
                     {{ form_label(registrationForm.lastname, null, {
-                        'label': 'Nom',
+                        'label': 'Nom', 'class': 'form-label'
                     }) }}
-                </label>
-                <div class="form-control">
                     {{ form_widget(registrationForm.lastname) }}
                 </div>
-                <label for="" class="form-label">
+
+                <div class="mb-3">
                     {{ form_label(registrationForm.email, null, {
                         'label': 'Votre adresse de messagerie/ Email',
+                        'class': 'form-label'
                     }) }}
-                </label>
-                <div class="form-control">
                     {{ form_widget(registrationForm.email) }}
                 </div>
-                <label for="" class="form-label mt-4">
 
+                <div class="mb-3">
                     {{ form_label(registrationForm.plainPassword, null, {
                         'label': 'Votre mot de passe/ Password',
                     }) }}
-                </label>
-                <div class="form-control mb-2">
                     {{ form_widget(registrationForm.plainPassword) }}
                 </div>
 
-                {{ form_row(registrationForm.agreeTerms) }}
+                {{ form_row(registrationForm.agreeTerms, {
+                    'label': 'Accepter les conditions',
+                }) }}
 
                 <button type="submit" class="btn btn-primary mt-4 mb-4">Valider</button>
             </div>

@@ -7,6 +7,7 @@ use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article implements TimestampedInterface
@@ -38,10 +39,10 @@ class Article implements TimestampedInterface
     #[ORM\Column(type: 'datetime')]
     private $updatedAt;
 
-    #[ORM\OneToMany(mappedBy: 'article_id', targetEntity: Comment::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: Comment::class, orphanRemoval: true)]
     private $comments;
 
-    public function __construct()
+    #[Pure] public function __construct()
     {
         $this->comments = new ArrayCollection();
     }
@@ -104,14 +105,12 @@ class Article implements TimestampedInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt($created_at): self
+    public function setCreatedAt($createdAt): self
     {
-        $this->createdAt = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
-
-
 
     /**
      * @return Collection<int, Comment>
@@ -171,5 +170,10 @@ class Article implements TimestampedInterface
     {
         $this->updatedAt = $updatedAt;
         return $this;
+    }
+
+    #[Pure] public function __toString(): string
+    {
+       return $this->getTitle();
     }
 }

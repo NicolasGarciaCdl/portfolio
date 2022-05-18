@@ -6,6 +6,11 @@ use App\Entity\Article;
 use App\Entity\Comment;
 use App\Entity\Language;
 use App\Entity\Project;
+use App\Entity\User;
+use App\Repository\ArticleRepository;
+use App\Repository\CommentRepository;
+use App\Repository\ProjectRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -15,10 +20,30 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+    protected $projectRepository;
+    protected $articleRepository;
+    protected $commentRepository;
+
+    public function __construct(
+        ProjectRepository $projectRepository,
+        ArticleRepository $articleRepository,
+        CommentRepository $commentRepository
+    )
+    {
+        $this->projectRepository = $projectRepository;
+        $this->articleRepository = $articleRepository;
+        $this->commentRepository = $commentRepository;
+    }
+
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return $this->render('admin/Dashboard.html.twig');
+
+         return $this->render('admin/Dashboard.html.twig',[
+             'projects' => $this->projectRepository->findAll(),
+             'articles'=> $this->articleRepository->findAll(),
+             'comments' => $this->commentRepository->findAll()
+         ]);
     }
 
 
@@ -48,6 +73,9 @@ class DashboardController extends AbstractDashboardController
         ]);
         yield MenuItem::subMenu('Commentaires', 'fas fa-newspaper')->setSubItems([
             MenuItem::linkToCrud('Tous les commentaires', 'fas fa-comments', Comment::class)
+        ]);
+        yield MenuItem::subMenu('Utilisateurs', 'fas fa-user')->setSubItems([
+            MenuItem::linkToCrud('Tous les utilisateurs', 'far fa-user', User::class)
         ]);
     }
 }

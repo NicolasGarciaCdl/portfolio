@@ -3,49 +3,52 @@
 {% block title %}Blog{% endblock %}
 
 {% block body %}
-<div class="container-fluid bg-dark">
-    <div class="container">
-        <h1 class="text-white">Mon Blog</h1>
-        {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-warning mb-4" href="{{ path('app_article_new') }}">Ajouter un article</a>
-        {% endif %}
-        <div class="row">
+    <div class="container-fluid bg-dark">
+        <div class="container">
+            <h1 class="text-white">Mon Blog</h1>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-warning mb-4" href="{{ path('app_article_new') }}">Ajouter un article</a>
+            {% endif %}
+            <div class="row">
 
-            <div class="col-md-8">
-                <h3 class="pb-4 mb-4 fst-italic border-bottom text-white">Articles récents</h3>
-            </div>
-            <h4 class="text-white">Actus du {{ data.semaine|date('d-m-Y') }}</h4>
-            {% for dat in data.ressources %}
-                <article class="card flex-md-row flex-wrap mb-4 box-shadow">
-                    <div class="article">
-                        <h5><a href="{{ dat.url }}"><i class="fas fa-star"></i>{{ dat.title }}</a></h5>
-                        <p class="">par {{ dat.pseudo }}</p>
-                    </div>
-                </article>
-            {% endfor %}
+                <div class="col-md-8">
+                    <h3 class="pb-4 mb-4 fst-italic border-bottom text-white">Articles récents</h3>
 
-            <div class="col-md-4">
-                <div class="position-sticky " style="top: 2rem;">
-
-                    {% for article in articles %}
-                        <a href="{{ article.linkUrl }}"><h2 class="text-white">{{ article.title }}</h2></a>
-                        <p class="text-white">{{ article.content }}</p>
-                        <p class="text-white">{{ article.createdAt ? article.createdAt|date('d-m-Y H:i:s') : '' }}</p>
-                        <a class="btn btn-primary" href="{{ path('app_article_show', {'id': article.id}) }}">Voir plus</a>
-
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <a class="btn btn-secondary" href="{{ path('app_article_edit', {'id': article.id}) }}">Modifier</a>
-                        {% endif %}
-
-                    {% else %}
-                        <div>
-                            <h2 class="text-white">no records found</h2>
+                <h4 class="text-white">Actus du {{ data.semaine|date('d-m-Y') }}</h4>
+                {% for dat in data.ressources %}
+                    <article class="card flex-md-row flex-wrap mb-4 box-shadow">
+                        <div class="article">
+                            <h5><a href="{{ dat.url }}" target="_blank"><i class="fas fa-star" ></i>{{ dat.title }}</a></h5>
+                            <p class="">par {{ dat.pseudo }}</p>
                         </div>
-                    {% endfor %}
+                    </article>
+                {% endfor %}
+                </div>
+                <div class="col-md-8">
+                    <div class="position-sticky " style="top: 2rem;">
+
+                        {% for article in articles %}
+                            <article class="card flex-md-row flex-wrap mb-4 box-shadow">
+                                <div class="article">
+                                    <a href="{{ article.linkUrl }}"><h2>{{ article.title }}</h2></a>
+                                    <p>{{ article.content|raw }}</p>
+                                    <p>{{ article.createdAt ? article.createdAt|date('d-m-Y H:i') : '' }}</p>
+                                    <a class="btn btn-primary" href="{{ path('app_article_show', {'id': article.id}) }}">Voir plus</a>
+
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="btn btn-secondary" href="{{ path('app_article_edit', {'id': article.id}) }}">Modifier</a>
+                                    {% endif %}
+                                </div>
+                            </article>
+                        {% else %}
+                            <div>
+                                <h2 class="text-white">no records found</h2>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 {% endblock %}

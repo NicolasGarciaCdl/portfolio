@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Article;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -17,7 +18,18 @@ class ArticleCrudController extends AbstractCrudController
     {
         return Article::class;
     }
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setPageTitle('index', 'Portfolio-Administration des Articles')
+            ->setEntityLabelInPlural('Articles')
+            ->setEntityLabelInSingular('Article')
+            ->setDefaultSort(['id'=> 'DESC'])
+            ->setPageTitle('new', 'Ajout d\'un article')
+            ->setPageTitle('edit', 'Modification d\'un article')
+            ->showEntityActionsInlined();
 
+    }
 
     public function configureFields(string $pageName): iterable
     {

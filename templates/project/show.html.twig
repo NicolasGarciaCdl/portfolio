@@ -12,17 +12,23 @@
                     <div class="card" >
                         <img src="{{ vich_uploader_asset(project, 'imageFile') }}" class="card-img-top" alt="image du projet {{ project.title }}">
                         <div class="card-body bg-dark text-white">
-                            <h2>Crée le : {{ project.createdAt ? project.createdAt|date('Y-m-d') : '' }}</h2>
+                            <h2>Crée le : {{ project.createdAt ? project.createdAt|date('d-m-Y') : '' }}</h2>
                             <p class="card-text"> {{ project.content }}</p>
 
+                            <div class="mb-2"> Compétences utilisées :
+                                {% for lang in project.languages %}
+                                    <img src="{{ vich_uploader_asset(lang, 'imageFile') }}" width="40" height="40" style="background-color: #fff;" alt="">
+                                {% endfor %}
+                                ({{project.languages|length }})
+                            </div>
                             <a class="btn btn-primary" href="{{ project.url }}" target="_blank">Lien vers le site</a>
                         </div>
                     </div>
                 </div>
                 <a class="btn btn-info" href="{{ path('app_project_index') }}">Retour à la liste</a>
                 {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-success" href="{{ path('app_project_edit', {'id': project.id}) }}">Modifier</a>
-                {{ include('project/_delete_form.html.twig') }}
+                    <a class="btn btn-success" href="{{ path('app_project_edit', {'id': project.id}) }}">Modifier</a>
+                    {{ include('project/_delete_form.html.twig') }}
                 {% endif %}
             </div>
         </div>

@@ -20,7 +20,7 @@ class LanguageType extends AbstractType
                 ]
             ])
             ->add('imageFile', VichImageType::class, [
-                'required' => true,
+                'label' => 'image du langage'
 
             ])
         ;

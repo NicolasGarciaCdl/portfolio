@@ -34,7 +34,8 @@ class LanguageCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('Langage et Framework')
             ->setDefaultSort(['id'=> 'DESC'])
             ->setPageTitle('new', 'Ajout de langage et framework')
-            ->setPageTitle('edit', 'Modification du langage et framework');
+            ->setPageTitle('edit', 'Modification du langage et framework')
+            ->showEntityActionsInlined();
 
     }
 
@@ -64,7 +65,7 @@ class LanguageCrudController extends AbstractCrudController
             IdField::new('id')
                 ->hideOnForm(),
             TextField::new('title', 'Titre'),
-            TextField::new('image_name', 'image',)->setFormType(VichImageType::class)->onlyWhenCreating(),
+            TextField::new('imageFile', 'image',)->setFormType(VichImageType::class)->onlyWhenCreating(),
             DateTimeField::new('updatedAt', 'Mis à jour le')
                 ->hideOnForm(),
         ];

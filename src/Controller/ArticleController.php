@@ -3,16 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Form\ArticleType;
+use App\Form\CommentType;
+use App\Repository\ArticleRepository;
+use App\Repository\UserRepository;
 use App\Services\CallApiService;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-#[Route('/article')]
+#[Route('/blog')]
 class ArticleController extends AbstractController
 {
 
@@ -33,28 +38,52 @@ class ArticleController extends AbstractController
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $article = new Article();
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
+        if($this->isGranted('ROLE_ADMIN')){
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($article);
-            $entityManager->flush();
+            $article = new Article();
+            $form = $this->createForm(ArticleType::class, $article);
+            $form->handleRequest($request);
 
-            return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($article);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('article/new.html.twig', [
+                'article' => $article,
+                'form' => $form,
+            ]);
         }
-
-        return $this->renderForm('article/new.html.twig', [
-            'article' => $article,
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}', name: 'app_article_show', methods: ['GET'])]
-    public function show(Article $article): Response
+    #[Route('/{id}', name: 'app_article_show', methods: ['GET', 'POST'])]
+    public function show($id, ArticleRepository $articleRepository, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepo): Response
     {
-        return $this->render('article/show.html.twig', [
+        $comments = $entityManager->getRepository(Comment::class)->findAll();
+        $article = $articleRepository->findOneBy(['id' => $id]);
+        $comment = new Comment();
+        $comment->setCreatedAt(new \DateTime());
+
+        $commentForm = $this->createForm(CommentType::class, $comment);
+        $commentForm->handleRequest($request);
+
+        if($commentForm->isSubmitted() && $commentForm->isValid()){
+            $comment = $commentForm->getData();
+            $comment->setUser($userRepo->findOneBy(['id'=> $this->getUser()]));
+            $comment->setArticle($article);
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setUpdatedAt(new \DateTime());
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_article_show', ['id'=> $id]);
+        }
+        return $this->renderForm('article/show.html.twig', [
             'article' => $article,
+            'commentForm' => $commentForm,
+            'comments' =>   $comments
         ]);
     }
 

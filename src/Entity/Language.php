@@ -21,14 +21,16 @@ class Language
     #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
+    #[ORM\Column(type: 'string')]
+    private ?string $imageName = null;
+
     /**
      * @Vich\UploadableField(mapping="languages", fileNameProperty="imageName")
      *
      */
     private $imageFile;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $imageName = null;
+
 
     #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'languages')]
     private $projects;
@@ -107,4 +109,8 @@ class Language
         return $this->imageName;
     }
 
+    public function __toString(): string
+    {
+       return $this->getTitle();
+    }
 }

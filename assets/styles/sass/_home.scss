@@ -49,6 +49,8 @@
     border: solid 2px grey;
     box-shadow: 7px 5px 0 2px #000000;
     padding: 32px;
+    margin: 5px;
+    width: 32%!important;
     color: $white;
     
     &:hover {
@@ -155,4 +157,6 @@
     .bg_video {
         display: none;
     }
+    
+    
 }

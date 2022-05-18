@@ -20,3 +20,7 @@ yarn-error.log
 /.idea*
 /.idea/symfony2.xml
 /.idea/vcs.xml
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###

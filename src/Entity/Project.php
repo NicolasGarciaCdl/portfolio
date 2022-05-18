@@ -106,9 +106,9 @@ class Project implements TimestampedInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt( $created_at): self
+    public function setCreatedAt($createdAt): self
     {
-        $this->createdAt = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -187,5 +187,9 @@ class Project implements TimestampedInterface
         return $this->imageName;
     }
 
+    public function __toString(): string
+    {
+       return $this->getTitle();
+    }
 
 }

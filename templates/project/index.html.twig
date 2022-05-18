@@ -13,7 +13,7 @@
             {% for project in projects %}
                 <div class="col-md-4">
                     <div class="card" >
-                        <img src="{{ vich_uploader_asset(project, 'imageFile') }}" class="card-img-top" alt="">
+                        <img src="{{ vich_uploader_asset(project, 'imageFile')| imagine_filter('miniature') }}" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">  {{ project.title }} </h5>
                             <p class="card-text">{{ project.content }}</p>

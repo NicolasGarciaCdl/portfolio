@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\ProjectType;
+use App\Repository\LanguageRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,28 +32,31 @@ class ProjectController extends AbstractController
     #[Route('/new', name: 'app_project_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $project = new Project();
-        $form = $this->createForm(ProjectType::class, $project);
-        $form->handleRequest($request);
+        if($this->isGranted('ROLE_ADMIN')) {
+            $project = new Project();
+            $form = $this->createForm(ProjectType::class, $project);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $projectToSave = $form->getData();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $projectToSave = $form->getData();
+                $entityManager->persist($projectToSave);
+                $entityManager->flush();
 
-            $entityManager->persist($projectToSave);
-            $entityManager->flush();
+                return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+            }
 
-            return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+            return $this->renderForm('project/new.html.twig', [
+                'project' => $project,
+                'form'    => $form,
+            ]);
         }
-
-        return $this->renderForm('project/new.html.twig', [
-            'project' => $project,
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}', name: 'app_project_show', methods: ['GET'])]
     public function show(Project $project): Response
     {
+
         return $this->render('project/show.html.twig', [
             'project' => $project,
         ]);
@@ -61,19 +65,22 @@ class ProjectController extends AbstractController
     #[Route('/{id}/edit', name: 'app_project_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Project $project, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ProjectType::class, $project);
-        $form->handleRequest($request);
+        if($this->isGranted('ROLE_ADMIN')) {
+            $form = $this->createForm(ProjectType::class, $project);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->flush();
 
-            return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('project/edit.html.twig', [
+                'project' => $project,
+                'form'    => $form,
+            ]);
         }
-
-        return $this->renderForm('project/edit.html.twig', [
-            'project' => $project,
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}', name: 'app_project_delete', methods: ['POST'])]

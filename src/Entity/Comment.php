@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Model\TimestampedInterface;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment implements TimestampedInterface
@@ -31,31 +32,32 @@ class Comment implements TimestampedInterface
     #[ORM\Column(type: 'datetime')]
     private $updatedAt;
 
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getArticleId(): ?Article
+    public function getArticle(): ?Article
     {
-        return $this->articleId;
+        return $this->article;
     }
 
-    public function setArticleId(?Article $article_id): self
+    public function setArticle(?Article $article_id): self
     {
-        $this->articleId = $article_id;
+        $this->article = $article_id;
 
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setUser(?User $user_id): self
     {
-        $this->userId = $user_id;
+        $this->user = $user_id;
 
         return $this;
     }
@@ -77,20 +79,21 @@ class Comment implements TimestampedInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt( $created_at): self
+    public function setCreatedAt($createdAt): self
     {
-        $this->createdAt = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUpdatedAt()
     {
-        // TODO: Implement getUpdatedAt() method.
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt)
+    public function setUpdatedAt($updatedAt)
     {
-        // TODO: Implement setUpdatedAt() method.
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 }
