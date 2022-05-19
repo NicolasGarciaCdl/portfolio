@@ -16,7 +16,7 @@
                         <img src="{{ vich_uploader_asset(project, 'imageFile')| imagine_filter('miniature') }}" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">  {{ project.title }} </h5>
-                            <p class="card-text">{{ project.content }}</p>
+                            <p class="card-text">{{ project.content| u.truncate(40,'...', false) }}</p>
                             <a class="btn btn-primary" href="{{ path('app_project_show', {'id': project.id}) }}">Voir Plus</a>
                             {% if is_granted('ROLE_ADMIN') %}
                             <a class="btn btn-success" href="{{ path('app_project_edit', {'id': project.id}) }}">Modifier</a>

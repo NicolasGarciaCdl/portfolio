@@ -21,6 +21,7 @@ class CommentType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => 'Votre commentaire',
                 'label_attr' => ['class'=> 'text-white']])
+            ->add('Ajouter', SubmitType::class)
 
         ;
 

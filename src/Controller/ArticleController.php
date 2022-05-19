@@ -45,6 +45,9 @@ class ArticleController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                $article->setCreatedAt(new \DateTime());
+                $article->setUpdatedAt(new \DateTime());
+                $article->setUser($this->getUser());
                 $entityManager->persist($article);
                 $entityManager->flush();
 
@@ -62,7 +65,7 @@ class ArticleController extends AbstractController
     #[Route('/{id}', name: 'app_article_show', methods: ['GET', 'POST'])]
     public function show($id, ArticleRepository $articleRepository, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepo): Response
     {
-        $comments = $entityManager->getRepository(Comment::class)->findAll();
+        $comments = $entityManager->getRepository(Comment::class)->findBy(['article' => $id]);
         $article = $articleRepository->findOneBy(['id' => $id]);
         $comment = new Comment();
         $comment->setCreatedAt(new \DateTime());

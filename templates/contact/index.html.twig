@@ -4,8 +4,8 @@
 
 {% block body %}
 
-<div class="m-5">
-        <h1 class="display-4 m-4 text-decoration-underline">Me Contacter</h1>
+<div class="m-5 contact">
+        <h1 class="display-4 text-decoration-underline">Me Contacter</h1>
             {% for message in app.flashes('success') %}
     <div class="alert alert-success">
         {{ message }}

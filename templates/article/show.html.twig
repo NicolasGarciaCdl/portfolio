@@ -27,7 +27,7 @@
                         <div class="col-sm-12">
                             {% for comment in comments %}
                                 <div class="card">
-                                    {{ comment.content }}
+                                    {{ comment.content |nl2br }}
                                 </div>
                             {% else %}
                                 <p class="text-white"> pas de commentaires</p>
