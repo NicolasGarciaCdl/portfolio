@@ -36,8 +36,8 @@ class AdminSubscriber implements EventSubscriberInterface
         if(!$entity instanceof TimestampedInterface){
             return;
         }
-        $user = $this->security->getUser();
-        $entity->setUser($user);
+//        $user = $this->security->getUser();
+//        $entity->setUser($user);
         $entity->setCreatedAt(new \DateTime());
         $entity->setUpdatedAt(new \DateTime());
 
@@ -50,8 +50,8 @@ class AdminSubscriber implements EventSubscriberInterface
         if(!$entity instanceof TimestampedInterface){
             return;
         }
-        $user = $this->security->getUser();
-        $entity->setUser($user);
+//        $user = $this->security->getUser();
+//        $entity->setUser($user);
         $entity->setUpdatedAt(new \DateTime());
     }
 }
