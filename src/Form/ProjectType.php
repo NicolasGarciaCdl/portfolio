@@ -42,6 +42,7 @@ class ProjectType extends AbstractType
                 'mapped' => true
             ])
             ->add('imageFile', VichImageType::class, [
+                'required'=> false,
                 'label' => 'Image du projet'
             ])
         ;
