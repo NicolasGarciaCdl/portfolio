@@ -19,19 +19,44 @@ class ProjectType extends AbstractType
     {
         $builder
             ->add('title', TextType::class,[
-                'label'=>'Titre'
+                'label'=>'Titre',
+                'label_attr' => [
+                    'class' => 'text-white'
+                ],
+                'attr'=> [
+                    'placeholder' => 'titre du project',
+                    'class'=>'text-white',
+                ],
             ])
             ->add('content', TextareaType::class,[
-                'label'=>'Contenu'
+                'label'=>'Contenu',
+                'label_attr' => [
+                    'class' => 'text-white'
+                ],
+                'attr'=> [
+                    'placeholder' => 'contenu du project',
+                    'class'=>'text-white',
+                ]
             ])
             ->add('url', TextType::class,[
-                'label'=>'Lien du projet'
+                'label'=>'Lien du projet',
+                'label_attr' => [
+                    'class' => 'text-white'
+                ],
+                'attr'=> [
+                    'placeholder' => 'url du project',
+                    'class'=>'text-white',
+                ]
             ])
             ->add('created_at', DateTimeType::class,[
                 'label'=> 'crée le',
+                'label_attr' => [
+                    'class' => 'text-white'
+                ],
                 'widget'=> 'single_text',
                 'attr'=> [
-                    'placeholder' => 'Date du project'
+                    'placeholder' => 'Date du project',
+                    'class'=>'text-white',
                 ]
             ])
             ->add('languages', EntityType::class, [
@@ -39,11 +64,27 @@ class ProjectType extends AbstractType
                 'expanded' =>true,
                 'multiple' =>true,
                 'choice_label' =>'title',
-                'mapped' => true
+                'choice_attr'=> [
+                    'class' => 'text-white',
+                ],
+                'attr'=> [
+                    'class'=>'text-white',
+                    ''
+                ],
+                'mapped' => true,
+                'label_attr' => [
+        'class' => 'text-white'
+    ],
             ])
             ->add('imageFile', VichImageType::class, [
                 'required'=> false,
-                'label' => 'Image du projet'
+                'label' => 'Image du projet',
+                'label_attr' => [
+                    'class' => 'text-white'
+                ],
+                'attr'=> [
+                    'class'=>'text-white',
+                ]
             ])
         ;
     }

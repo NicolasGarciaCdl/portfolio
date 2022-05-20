@@ -17,16 +17,44 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title', TextType::class,[
-                'label' => 'Titre de l\'article'
+                'label' => 'Titre de l\'article',
+                'label_attr' => [
+                    'class' => 'text-white'
+                ],
+                'attr'=> [
+                    'placeholder' => 'titre du project',
+                    'class'=>'text-white',
+                ],
             ])
             ->add('content', TextareaType::class,[
-                'label' => 'Contenu de l\'article'
+                'label' => 'Contenu de l\'article',
+                'label_attr' => [
+                    'class' => 'text-white'
+                ],
+                'attr'=> [
+                    'placeholder' => 'contenu du project',
+                    'class'=>'text-white',
+                ],
             ])
             ->add('link_url', TextType::class,[
-                'label' => 'Lien de l\'article'
+                'label' => 'Lien de l\'article',
+                'label_attr' => [
+                    'class' => 'text-white'
+                ],
+                'attr'=> [
+                    'placeholder' => 'http://url du project',
+                    'class'=>'text-white',
+                ],
             ])
             ->add('slug', TextType::class,[
-
+                'label' => 'slug',
+                'label_attr' => [
+                    'class' => 'text-white'
+                ],
+                'attr'=> [
+                    'placeholder' => 'slug du project',
+                    'class'=>'text-white',
+                ],
             ])
 
         ;

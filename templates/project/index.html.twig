@@ -3,15 +3,15 @@
 {% block title %}Mes realisations{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="m-4 text-decoration-underline">Mes réalisations</h1>
+    <div class="container bg-dark">
+        <h1 class="m-4 text-white text-decoration-underline">Mes réalisations</h1>
         {% if is_granted('ROLE_ADMIN') %}
         <a class="btn btn-warning m-2" href="{{ path('app_project_new') }}">Ajouter un projet</a>
         {% endif %}
         <div class="row">
 
             {% for project in projects %}
-                <div class="col-md-4">
+                <div class="col-md-4 mb-2">
                     <div class="card" >
                         <img src="{{ vich_uploader_asset(project, 'imageFile')| imagine_filter('miniature') }}" class="card-img-top" alt="">
                         <div class="card-body">

@@ -36,7 +36,8 @@ class Article implements TimestampedInterface
     #[ORM\Column(type: 'datetime')]
     private  $createdAt;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime', nullable: true)]
+
     private $updatedAt;
 
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: Comment::class, orphanRemoval: true)]

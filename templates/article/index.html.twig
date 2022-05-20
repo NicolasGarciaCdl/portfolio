@@ -7,7 +7,7 @@
         <div class="container">
             <h1 class="text-white">Mon Blog</h1>
             {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-warning mb-4" href="{{ path('app_article_new') }}">Ajouter un article</a>
+                <a class="btn btn-warning mb-4" href="{{ path('admin') }}">Ajouter un article</a>
             {% endif %}
             <div class="row">
 

@@ -20,35 +20,38 @@ class ContactType extends AbstractType
                 'label' => 'Prénom',
                 'attr' => [
                     'placeholder' => 'Votre prénom',
-                    'class' => 'form-control mb-2',
+                    'class' => 'form-control mb-2 text-white',
                 ]
             ])
             ->add('lastname', TextType::class,[
                 'label' => 'Nom',
                 'attr' => [
                     'placeholder' => 'Votre nom',
-                    'class' => 'form-control mb-2',
+                    'class' => 'form-control mb-2 text-white',
                 ]
             ])
             ->add('phone', TextType::class,[
                 'label' => 'Téléphone',
                 'attr' => [
                     'placeholder' => '0600000000',
-                    'class' => 'form-control mb-2',
+                    'class' => 'form-control mb-2 text-white',
                 ]
             ])
             ->add('email', EmailType::class,[
                 'label' => 'Adresse de messagerie',
                 'attr' => [
                     'placeholder' => 'Votre adresse de messagerie / email',
-                    'class' => 'form-control mb-2',
+                    'class' => 'form-control mb-2 text-white',
                 ]
             ])
             ->add('message', TextareaType::class,[
                 'label' => 'Message',
+                'label_attr'=> [
+                    'class'=> 'text-white'
+                ],
                 'attr' => [
                     'placeholder' => 'Votre message',
-                    'class' => 'form-control mb-2',
+                    'class' => 'form-control mb-2 text-white',
                 ]
             ])
             ->add('envoyer', SubmitType::class, [

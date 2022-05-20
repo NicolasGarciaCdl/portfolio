@@ -5,7 +5,7 @@
 {% block body %}
 
 <div class="m-5 contact">
-        <h1 class="display-4 text-decoration-underline">Me Contacter</h1>
+        <h1 class="display-4 text-white text-decoration-underline">Me Contacter</h1>
             {% for message in app.flashes('success') %}
     <div class="alert alert-success">
         {{ message }}
@@ -14,12 +14,12 @@
         {{ form_start(form) }}
         <div class="container">
             <div class="row mt-2">
-                <div class="col">{{ form_row(form.firstname) }}</div>
-                <div class="col">{{ form_row(form.lastname) }}</div>
+                <div class="col text-white">{{ form_row(form.firstname) }}</div>
+                <div class="col text-white">{{ form_row(form.lastname) }}</div>
             </div>
             <div class="row">
-                <div class="col">{{ form_row(form.phone) }}</div>
-                <div class="col">{{ form_row(form.email) }}</div>
+                <div class="col text-white">{{ form_row(form.phone) }}</div>
+                <div class="col text-white">{{ form_row(form.email) }}</div>
             </div>
             {{ form_rest(form) }}
 
