@@ -14,11 +14,11 @@
             </div>
         {% endif %}
         <div class="container mt-5 login">
-            <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
-            <p>Pas encore de compte !! <a href="{{ path('app_register') }}">Créez un compte ici</a></p>
-            <label for="inputEmail">Adresse de messagerie / Email</label>
+            <h1 class="h3 mb-3 font-weight-normal text-white">Connectez-vous</h1>
+            <p class="text-white">Pas encore de compte !! <a href="{{ path('app_register') }}">Créez un compte ici</a></p>
+            <label class="text-white" for="inputEmail">Adresse de messagerie / Email</label>
             <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-            <label for="inputPassword">Mot de Passe / Password</label>
+            <label class="text-white" for="inputPassword">Mot de Passe / Password</label>
             <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
             <input type="hidden" name="_csrf_token"

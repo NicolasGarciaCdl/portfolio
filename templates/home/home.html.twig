@@ -6,6 +6,14 @@
     <main xmlns="http://www.w3.org/1999/html">
         <section class="section-main">
             <div class="home-section1 container">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert-{{ label }}  alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
                 <div class="welcome">
                     <p class="text-red">Bonjour, Je suis</p>
                     <h1 class="big-title">Nicolas Garcia</h1>
@@ -47,10 +55,10 @@
         <!------------------------- Section projet ------------------>
         <section>
             <div class="container-fluid bg-dark">
-                    <div class="container px-4 py-5 ">
-                        <h2 class="pb-2 border-bottom text-white" >Mes Réalisations</h2>
-                    </div>
-                     <div class="row py-5" >
+                <div class="container px-4 py-5 ">
+                    <h2 class="pb-2 border-bottom text-white" >Mes Réalisations</h2>
+                </div>
+                <div class="row py-5" >
 
                     <section>
                         <!-- Slideshow container -->

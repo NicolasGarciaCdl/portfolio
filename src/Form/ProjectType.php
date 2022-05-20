@@ -25,7 +25,7 @@ class ProjectType extends AbstractType
                 ],
                 'attr'=> [
                     'placeholder' => 'titre du project',
-                    'class'=>'text-white',
+
                 ],
             ])
             ->add('content', TextareaType::class,[
@@ -35,7 +35,6 @@ class ProjectType extends AbstractType
                 ],
                 'attr'=> [
                     'placeholder' => 'contenu du project',
-                    'class'=>'text-white',
                 ]
             ])
             ->add('url', TextType::class,[
@@ -45,7 +44,7 @@ class ProjectType extends AbstractType
                 ],
                 'attr'=> [
                     'placeholder' => 'url du project',
-                    'class'=>'text-white',
+
                 ]
             ])
             ->add('created_at', DateTimeType::class,[
@@ -56,7 +55,7 @@ class ProjectType extends AbstractType
                 'widget'=> 'single_text',
                 'attr'=> [
                     'placeholder' => 'Date du project',
-                    'class'=>'text-white',
+
                 ]
             ])
             ->add('languages', EntityType::class, [
@@ -66,10 +65,6 @@ class ProjectType extends AbstractType
                 'choice_label' =>'title',
                 'choice_attr'=> [
                     'class' => 'text-white',
-                ],
-                'attr'=> [
-                    'class'=>'text-white',
-                    ''
                 ],
                 'mapped' => true,
                 'label_attr' => [
@@ -82,9 +77,6 @@ class ProjectType extends AbstractType
                 'label_attr' => [
                     'class' => 'text-white'
                 ],
-                'attr'=> [
-                    'class'=>'text-white',
-                ]
             ])
         ;
     }
