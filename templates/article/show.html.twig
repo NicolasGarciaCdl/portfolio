@@ -27,7 +27,12 @@
                         <div class="col-sm-12">
                             {% for comment in comments %}
                                 <div class="card">
-                                    {{ comment.content |nl2br }}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ comment.user }} a dit le {{ comment.createdAt|date('d-m-Y H:i') }}</h5>
+                                        <p class="card-text"> {{ comment.content |nl2br }}</p>
+                                        <a href="#" class="btn">Répondre</a>
+                                    </div>
+
                                 </div>
                             {% else %}
                                 <p class="text-white"> pas de commentaires</p>

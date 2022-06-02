@@ -24,7 +24,6 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-
             $notification->notify($contact);
             $this->addFlash('success', 'Votre message a bien été envoyé ! ');
            return $this->redirectToRoute('app_contact');

@@ -34,7 +34,7 @@ class ContactType extends AbstractType
                 'label' => 'Téléphone',
                 'attr' => [
                     'placeholder' => '0600000000',
-                    'class' => 'form-control mb-2 text-white',
+                    'class' => 'form-control mb-2',
                 ]
             ])
             ->add('email', EmailType::class,[
